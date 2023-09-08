@@ -1,18 +1,16 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template, request, redirect, url_for
 import firebase_admin
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore, initialize_app, auth
 
-# Carga el archivo de credenciales de servicio
-cred = credentials.Certificate("C:\\Users\\oscar\\PycharmProjects\\proyectoAPI\\api-imc-firebase-adminsdk-f3xab-4321a2ccf0.json")
-firebase_admin.initialize_app(cred)
-
-
-db = firestore.client()
-
-
+# Inicializa la aplicación Flask
 app = Flask(__name__)
 
+# Configura Firebase
+cred = credentials.Certificate("C:\\Users\\oscar\\PycharmProjects\\proyectoAPI\\api-imc-firebase-adminsdk-f3xab-4321a2ccf0.json")
+firebase_app = initialize_app(cred)
+db = firestore.client()
 
+# Ruta principal
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -27,20 +25,26 @@ def index():
         else:
             message = 'Estás gordo.'
 
-        # Guarda los datos en Firestore
-        data = {
+        # Crea un nuevo usuario en Firebase Authentication
+        user = auth.create_user(
+            email=email,
+            password='password'  # Cambia esto por una contraseña segura
+        )
+
+        # Agrega el resultado a Firestore
+        user_ref = db.collection('usuarios').document(user.uid)
+        user_ref.set({
             'email': email,
             'imc': imc,
-            'message': message
-        }
-        db.collection('usuarios').add(data)
+            'mensaje': message
+        })
 
-        # Envía una respuesta al usuario
-        return f'¡Tus datos se han guardado en Firestore! Tu IMC es {imc}.'
+        # Envía una respuesta al correo del usuario
+        # (Debes implementar esta parte utilizando un servicio de correo)
 
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 

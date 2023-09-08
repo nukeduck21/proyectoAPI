@@ -1,16 +1,20 @@
 {
   "name": "proyectoAPI",
   "version": "1.0.0",
-  "description": "Descripción de tu proyecto",
+  "description": "API con Flask y Firebase",
+  "main": "app.py",
+  "dependencies": {
+    "flask": "^2.1.0",
+    "firebase-admin": "^10.0.1",
+    "python-firebase": "^1.2.1"
+    // Otras dependencias que puedas tener
+  },
   "scripts": {
     "start": "python app.py",
-    "build": "python build_script.py"
-  },
-  "dependencies": {
-    "flask": "^2.1.0"
-    // Otras dependencias...
+    "build": "echo \"No build steps needed for a Flask API\""
   }
 }
+
 
 
 
