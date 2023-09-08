@@ -3,7 +3,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore, auth
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Cambia esto por una clave secreta
+app.secret_key = 'acm1pte'  # Cambia esto por una clave secreta
 
 # Configura Firebase Admin SDK
 cred = credentials.Certificate("api-imc-firebase-adminsdk-f3xab-4321a2ccf0.json")
