@@ -1,14 +1,18 @@
+from flask import Flask, request, render_template
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-# Inicializa Firebase App
-cred = credentials.Certificate("ruta/a/tu/credencial-de-servicio.json")
+# Carga el archivo de credenciales de servicio
+cred = credentials.Certificate("C:\\Users\\oscar\\PycharmProjects\\proyectoAPI\\api-imc-firebase-adminsdk-f3xab-4321a2ccf0.json")
 firebase_admin.initialize_app(cred)
 
-# Configura el cliente de Firestore
+
 db = firestore.client()
 
-# Ruta principal
+
+app = Flask(__name__)
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
