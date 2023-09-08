@@ -1,16 +1,15 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
-from google.cloud.firestore_v1 import Increment
 
 app = Flask(__name__)
-app.secret_key = '@ACM1PTE@'
+app.secret_key = 'your_secret_key'  # Cambia esto por una clave secreta
 
 # Configura Firebase Admin SDK
-cred = credentials.Certificate("proyectoAPI/api-imc-firebase-adminsdk-f3xab-4321a2ccf0.json")
+cred = credentials.Certificate("api-imc-firebase-adminsdk-f3xab-4321a2ccf0.json")
 firebase_admin.initialize_app(cred)
 
-
+# Inicializa Firestore
 db = firestore.client()
 
 # Ruta principal
@@ -18,7 +17,7 @@ db = firestore.client()
 def index():
     if request.method == 'POST':
         email = request.form['email']
-        password = request.form['password']
+        password = request.form['password']  # Obtén la contraseña del formulario
 
         # Determina el mensaje según el IMC
         imc = float(request.form['imc'])
@@ -52,3 +51,4 @@ def index():
 
 if __name__ == '__main__':
     app.run()
+
