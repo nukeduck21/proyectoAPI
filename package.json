@@ -1,0 +1,16 @@
+{
+  "name": "proyectoAPI",
+  "version": "1.0.0",
+  "description": "Descripción de tu proyecto",
+  "scripts": {
+    "start": "python app.py",
+    "build": "python build_script.py"
+  },
+  "dependencies": {
+    "flask": "^2.1.0"
+    // Otras dependencias...
+  }
+}
+
+
+
